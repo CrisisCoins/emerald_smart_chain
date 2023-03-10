@@ -1,7 +1,7 @@
 {
   "name": "emerald_smart_chain",
   "version": "1.0.0",
-  "description": "",
+  "description": "A Custom Blockchain Prototype.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
