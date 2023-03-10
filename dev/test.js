@@ -21,9 +21,6 @@ const currentBlockData = [
     }
 ];
 
-const nonce = 37;
+console.log(bitcoin.proofOfWork(previousBlockHash, currentBlockData));
 
-console.log(bitcoin.hashBlock(previousBlockHash, currentBlockData, nonce));
-
-// Test Result 1: 4cb9fa1c628cd3eb991d66e77363e02c7e1a68f39a386e759645f5761dc65e60
-// Test Result 2: e49ead1ffc517fc1c22a58cbe9f53362fdecece9d945fbf7fbf33bff26d1fc6c
+// Test Nonce Value: 286572
