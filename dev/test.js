@@ -1,16 +1,29 @@
 const Blockchain = require('./blockchain');
-
 const bitcoin = new Blockchain();
 
-bitcoin.createNewBlock(5069634, '0x90809080', '0x03040303', '0x43435464');
 
-bitcoin.createNewTransaction(10, '0x3333333', '0x99999999');
+const previousBlockHash = '0x9898989898';
+const currentBlockData = [
+    {
+        amount: 20,
+        sender: '0x9898989898989',
+        recipient: '0x9898989898989'
+    },
+    {
+        amount: 120,
+        sender: '0x363633989898989',
+        recipient: '0x978585498989898989'
+    },
+    {
+        amount: 220,
+        sender: '0x925896398989898989',
+        recipient: '0x989894747489898989'
+    }
+];
 
-bitcoin.createNewBlock(4369605, '0x9425259080', '0x033323040303', '06565x43435464');
+const nonce = 37;
 
-bitcoin.createNewTransaction(16, '0x9993333333', '0x99834999999');
-bitcoin.createNewTransaction(110, '0x8883333333', '0x93239999999');
-bitcoin.createNewTransaction(610, '0x3999333333', '0x9332349999999');
+console.log(bitcoin.hashBlock(previousBlockHash, currentBlockData, nonce));
 
-bitcoin.createNewBlock(30206, '0x676767080', '0x1243323040303', '5x43435464');
-console.log(bitcoin.chain[2]);
+// Test Result 1: 4cb9fa1c628cd3eb991d66e77363e02c7e1a68f39a386e759645f5761dc65e60
+// Test Result 2: e49ead1ffc517fc1c22a58cbe9f53362fdecece9d945fbf7fbf33bff26d1fc6c
