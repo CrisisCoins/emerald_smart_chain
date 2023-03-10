@@ -21,6 +21,7 @@ const currentBlockData = [
     }
 ];
 
-console.log(bitcoin.proofOfWork(previousBlockHash, currentBlockData));
+console.log(bitcoin.hashBlock(previousBlockHash, currentBlockData, 286572));
 
 // Test Nonce Value: 286572
+// Generated hash from previous test result: 00003a2d2cc953b5c4e884ea8f075a5db10e0ca4117e113f773b1d00ca81236d
