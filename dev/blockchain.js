@@ -5,7 +5,7 @@ function Blockchain() {
   this.pendingTransactions = [];
 
   // Genesis block
-  this.createNewBlock(0, '0x00000000', '0x00000000');
+  this.createNewBlock(0, "0x00000000", "0x00000000");
 }
 
 Blockchain.prototype.createNewBlock = function (
