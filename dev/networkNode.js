@@ -4,7 +4,6 @@ const bodyParser = require("body-parser");
 
 const Blockchain = require("./blockchain");
 
-
 const port = process.argv[2];
 
 const uuid = require("uuid").v1;
@@ -49,6 +48,22 @@ app.get("/mine", function (req, res) {
 
   const newBlock = bitcoin.createNewBlock(nonce, previousBlockHash, blockHash);
   res.json({ note: "A new block was mined successfully...", block: newBlock });
+});
+
+// registers a new node and broadcast new node to the current network
+app.post("/register-and-broadcast-node", function (req, res) {
+  const newNodeUrl = req.body.newNodeUrl;
+});
+
+// registers node with the other networks nodes
+app.post("/register-node", function (req, res) {
+
+});
+
+
+// register all present nodes together with new node together
+app.post('/register-nodes-bulk', function (req, res) {
+
 });
 
 app.listen(port, function () {
