@@ -29,6 +29,30 @@ app.post("/transaction", function (req, res) {
   res.json({ note: `A new transaction will be added to Block ${blockIndex}.` });
 });
 
+// Creates new transaction and broadcast to all nodes
+app.post('/transaction/broadcast', function (req, res) {
+  const newTransaction = bitcoin.createNewTransaction(req.body.amount, req.body.sender, req.body.recipient);
+  bitcoin.mergeTransactionWithPendingTransactions(newTransaction);
+
+  const requestPromises = [];
+  bitcoin.networkNodes.forEach(networkNodeUrl => {
+    const requestOptions = {
+      uri: networkNodeUrl + '/transaction',
+      method: "POST",
+      body: newTransaction,
+      json: true,
+    };
+    requestPromises.push(rp(requestOptions));
+  });
+  Promise.all(requestPromises)
+    .then(data => {
+      res.json({ note: 'A transaction was created and broadcasted successfully...' });
+  });
+});
+
+// 4:55
+
+
 // create a new block
 app.get("/mine", function (req, res) {
   const lastBlock = bitcoin.getPreviousBlock();
