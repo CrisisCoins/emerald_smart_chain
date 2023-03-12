@@ -1,5 +1,8 @@
 const sha256 = require("sha256");
 const currentNodeUrl = process.argv[3];
+const uuid = require("uuid").v1;
+
+
 function Blockchain() {
   this.chain = [];
   this.pendingTransactions = [];
@@ -9,6 +12,7 @@ function Blockchain() {
   // Genesis block
   this.createNewBlock(0, "0x00000000", "0x00000000");
 }
+
 
 Blockchain.prototype.createNewBlock = function (
   nonce,
@@ -43,12 +47,19 @@ Blockchain.prototype.createNewTransaction = function (
     amount: amount,
     sender: sender,
     recipient: recipient,
+    transactionId: uuid().split("-").join("");
   };
 
-  this.pendingTransactions.push(newTransaction);
-
-  return this.getPreviousBlock()["blockIndex"] + 1;
+  return newTransaction;
 };
+
+
+Blockchain.prototype.mergeTransactionWithPendingTransactions = function (transactionObj) {
+  this.pendingTransactions.push(transactionObj);
+  return this.getPreviousBlock()['blockIndex'] + 1;
+};
+
+
 
 Blockchain.prototype.hashBlock = function (
   previousBlockHash,
