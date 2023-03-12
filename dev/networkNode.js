@@ -21,12 +21,9 @@ app.get("/blockchain", function (req, res) {
 
 // create a new transaction
 app.post("/transaction", function (req, res) {
-  const blockIndex = bitcoin.createNewTransaction(
-    req.body.amount,
-    req.body.sender,
-    req.body.recipient
-  );
-  res.json({ note: `A new transaction will be added to Block ${blockIndex}.` });
+  const newTransaction = req.body;
+  const blockIndex = bitcoin.mergeTransactionWithPendingTransactions(newTransaction);
+  res.json({ note: `The transaction will be merged into block ${blockIndex}.` })
 });
 
 // Creates new transaction and broadcast to all nodes
