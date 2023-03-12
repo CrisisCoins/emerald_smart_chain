@@ -111,7 +111,7 @@ app.post("/register-nodes-bulk", function (req, res) {
   });
 
   res.json({
-    note: "Bulk registration of nodes successfully...",
+    note: "Bulk registration of nodes successfully registered on all nodes...",
   });
 });
 
