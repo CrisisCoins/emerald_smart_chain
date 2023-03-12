@@ -102,6 +102,35 @@ app.get("/mine", function (req, res) {
     });
 });
 
+
+// Receives a new block instance being broadcasted
+app.post('/receive-new-blockInstance', function(req, res) {
+  const newBlock = req.body.newBlock;
+  const lastBlock = bitcoin.getPreviousBlock();
+  const correctHash = lastBlock.hash === newBlock.previousBlockHash;
+  const correctBlockIndex = lastBlock['blockIndex'] + 1 === newBlock['blockIndex'];
+
+  if (correctHash && correctBlockIndex) {
+    bitcoin.chain.push(newBlock);
+    bitcoin.pendingTransactions = [];
+    res.json({
+      note: 'The new block instance was received successfully and added onto the emerald smart chain...',
+      newBlock: newBlock
+    });
+  } else {
+    res.json({
+      note: 'The new block instance was found to be fraudulent and unfortunately was rejected...',
+      newBlock: newBlock
+    });
+  }
+});
+
+
+
+
+
+
+
 // registers a new node and broadcast new node to the current network
 app.post("/register-and-broadcast-node", function (req, res) {
   const newNodeUrl = req.body.newNodeUrl;
