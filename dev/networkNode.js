@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
-const rp = require('request-promise');
+const rp = require("request-promise");
 const Blockchain = require("./blockchain");
 
 const port = process.argv[2];
@@ -104,10 +104,12 @@ app.post("/register-node", function (req, res) {
 // register all present nodes together with new node together
 app.post("/register-nodes-bulk", function (req, res) {
   const allNetworkNodes = req.body.allNetworkNodes;
-  allNetworkNodes.forEach(networkNodeUrl => {
-    const nodeAlreadyInNetworkNodeArray = bitcoin.networkNodes.indexOf(networkNodeUrl) == -1;
+  allNetworkNodes.forEach((networkNodeUrl) => {
+    const nodeAlreadyInNetworkNodeArray =
+      bitcoin.networkNodes.indexOf(networkNodeUrl) == -1;
     const notSameNode = bitcoin.currentNodeUrl !== networkNodeUrl;
-     if (nodeAlreadyInNetworkNodeArray && notSameNode) bitcoin.networkNodes.push(networkNodeUrl);
+    if (nodeAlreadyInNetworkNodeArray && notSameNode)
+      bitcoin.networkNodes.push(networkNodeUrl);
   });
 
   res.json({
